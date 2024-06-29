@@ -48,7 +48,7 @@ The project includes an example prediction function to classify a new painting. 
 #
 ### Results
 The model is evaluated on a test dataset, providing detailed performance metrics and visualizations. The results demonstrate the model's effectiveness in classifying paintings by different artists.
-
+ #
 
 ### Additional Information
 Directory Structure
