@@ -29,6 +29,7 @@ def main():
     loss_fn = torch.nn.CrossEntropyLoss()
     metric = torchmetrics.Accuracy(task='multiclass', num_classes=len(painters)).to(device)
 
+
     epochs = 35
     train_losses = []
     test_losses = []
@@ -47,16 +48,17 @@ def main():
     torch.save(model.state_dict(), 'your_trained_model.pth')
     plot_metrics(train_losses, test_losses, train_accuracies, test_accuracies)
 
-    # # Model evaluation
-    model.load_state_dict(torch.load('your_trained_model.pth'))
+
+
+    # Model evaluation
+    model.load_state_dict(torch.load('trained_model.pth'))
     all_labels, all_preds = evaluate_model(model, test_loader, device)
     print(classification_report(all_labels, all_preds, target_names=painters))
     conf_matrix = confusion_matrix(all_labels, all_preds)
     plot_confusion_matrix(conf_matrix, painters)
 
-
     # Example prediction
-    image_path = './goya.jpg' 
+    image_path = './kle.jpg' 
     painter = predict_painter(image_path, model, painters, device)
     print(f"The predicted painter for {image_path} is: {painter}")
 

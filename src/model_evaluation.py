@@ -18,7 +18,7 @@ def evaluate_model(model, test_loader, device):
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(y.cpu().numpy())
 
-    test_acc = metric.compute()
+    test_acc = metric.compute().item()
     print(f"Testing Accuracy: {test_acc}")
     metric.reset()
 
