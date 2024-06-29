@@ -49,11 +49,6 @@ The project includes an example prediction function to classify a new painting. 
 ### Results
 The model is evaluated on a test dataset, providing detailed performance metrics and visualizations. The results demonstrate the model's effectiveness in classifying paintings by different artists.
 
-### Contributing
-Contributions to the project are welcome. If you have any suggestions or improvements, feel free to submit a pull request or open an issue.
-
-### License
-This project is licensed under the MIT License.
 
 ### Additional Information
 Directory Structure
