@@ -1,6 +1,4 @@
-import numpy as np
 from torchvision import transforms
-from torch.utils.data import Dataset
 from torchvision.datasets import ImageFolder
 import torch
 
@@ -20,3 +18,5 @@ def split_data(dataset, train_size=0.8):
     test_size = len(dataset) - train_size
     train_dataset, test_dataset = torch.utils.data.random_split(dataset, [train_size, test_size])
     return train_dataset, test_dataset
+
+

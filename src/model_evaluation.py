@@ -7,7 +7,6 @@ import seaborn as sns
 
 def evaluate_model(model, test_loader, device):
     model.eval()
-    metric = torchmetrics.Accuracy(task='multiclass', num_classes=len(test_loader.dataset.dataset.classes)).to(device)
     all_preds = []
     all_labels = []
     with torch.no_grad():
@@ -18,10 +17,6 @@ def evaluate_model(model, test_loader, device):
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(y.cpu().numpy())
 
-    test_acc = metric.compute().item()
-    print(f"Testing Accuracy: {test_acc}")
-    metric.reset()
-
     return all_labels, all_preds
 
 def plot_confusion_matrix(conf_matrix, class_map):
@@ -31,6 +26,8 @@ def plot_confusion_matrix(conf_matrix, class_map):
     plt.ylabel('True')
     plt.title('Confusion Matrix')
     plt.savefig('results/confusion_matrix.png')
+    plt.show()
+
 
 def plot_metrics(train_losses, test_losses, train_accuracies, test_accuracies):
     epochs = range(1, len(train_losses) + 1)

@@ -6,8 +6,8 @@ from src.model_evaluation import evaluate_model, plot_confusion_matrix, plot_met
 from src.predict import predict_painter
 import torchmetrics
 from sklearn.metrics import classification_report, confusion_matrix
-
-
+from PIL import Image, ImageDraw, ImageFont
+import matplotlib.pyplot as plt
 
 def main():
     # Data preparation
@@ -29,38 +29,43 @@ def main():
     loss_fn = torch.nn.CrossEntropyLoss()
     metric = torchmetrics.Accuracy(task='multiclass', num_classes=len(painters)).to(device)
 
+    # Uncommented training loop for brevity
+    # epochs = 35
+    # train_losses = []
+    # test_losses = []
+    # train_accuracies = []
+    # test_accuracies = []
 
-    epochs = 35
-    train_losses = []
-    test_losses = []
-    train_accuracies = []
-    test_accuracies = []
+    # for epoch in range(epochs):
+    #     print(f'Epoch [{epoch+1}/{epochs}]')
+    #     train_loss, train_acc = train_loop(train_loader, model, loss_fn, optimizer, metric, device)
+    #     test_loss, test_acc = test_loop(test_loader, model, metric, device)
+    #     train_losses.append(train_loss)
+    #     test_losses.append(test_loss)
+    #     train_accuracies.append(train_acc)
+    #     test_accuracies.append(test_acc)
 
-    for epoch in range(epochs):
-        print(f'Epoch [{epoch+1}/{epochs}]')
-        train_loss, train_acc = train_loop(train_loader, model, loss_fn, optimizer, metric, device)
-        test_loss, test_acc = test_loop(test_loader, model, metric, device)
-        train_losses.append(train_loss)
-        test_losses.append(test_loss)
-        train_accuracies.append(train_acc)
-        test_accuracies.append(test_acc)
-
-    torch.save(model.state_dict(), 'your_trained_model.pth')
-    plot_metrics(train_losses, test_losses, train_accuracies, test_accuracies)
-
-
+    # torch.save(model.state_dict(), 'trained_model.pth')
+    # plot_metrics(train_losses, test_losses, train_accuracies, test_accuracies)
 
     # Model evaluation
     model.load_state_dict(torch.load('trained_model.pth'))
     all_labels, all_preds = evaluate_model(model, test_loader, device)
+
+    # Debug prints
+    print("Labels: ", all_labels)
+    print("Predictions: ", all_preds)
+
     print(classification_report(all_labels, all_preds, target_names=painters))
     conf_matrix = confusion_matrix(all_labels, all_preds)
     plot_confusion_matrix(conf_matrix, painters)
 
     # Example prediction
-    image_path = './kle.jpg' 
+    image_path = './klee.jpg' 
     painter = predict_painter(image_path, model, painters, device)
     print(f"The predicted painter for {image_path} is: {painter}")
 
+
 if __name__ == "__main__":
     main()
+

@@ -2,7 +2,6 @@ import torch
 from PIL import Image
 from torchvision import transforms
 
-
 def predict_painter(image_path, model, painters, device):
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
